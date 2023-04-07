@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
 
-from .permissions import OwnerOrReadOnly, ReadOnly
+from .permissions import OwnerOrReadOnly
 
 from .models import Achievement, Cat, User
 
