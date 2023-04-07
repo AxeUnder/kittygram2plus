@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions
+from rest_framework.throttling import AnonRateThrottle
 
 from .permissions import OwnerOrReadOnly
 
@@ -12,6 +13,7 @@ class CatViewSet(viewsets.ModelViewSet):
     serializer_class = CatSerializer
     # Устанавливаем разрешение
     permission_classes = (OwnerOrReadOnly,)
+    throttle_classes = (AnonRateThrottle,)  # Подключили класс AnonRateThrottle
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
