@@ -24,6 +24,14 @@ class CatViewSet(viewsets.ModelViewSet):
     # Вот он наш собственный класс пагинации с page_size=20
     pagination_class = CatsPagination
 
+    def get_queryset(self):
+        queryset = Cat.objects.all()
+        color = self.kwargs['color']
+        # Через ORM отфильтровать объекты модели Cat
+        # по значению параметра color, полученного в запросе
+        queryset = queryset.filter(color=color)
+        return queryset
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
