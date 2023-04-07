@@ -23,13 +23,12 @@ class CatViewSet(viewsets.ModelViewSet):
     # Если он вернёт False - все запросы будут отклонены
     throttle_classes = (WorkingHoursRateThrottle,)
     # Добавим в кортеж ещё один бэкенд
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filter_backends = (filters.SearchFilter,)
     # Временно отключим пагинацию на уровне вьюсета,
     # так будет удобнее настраивать фильтрацию
     pagination_class = None
-    # Фильтровать будем по полям color и birth_year модели Cat
-    filterset_fields = ('color', 'birth_year')
-    search_fields = ('achievements__name', 'owner__username')
+    # Определим, что значение параметра search должно быть началом искомой строки
+    search_fields = ('^name',)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
