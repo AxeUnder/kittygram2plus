@@ -22,14 +22,14 @@ class CatViewSet(viewsets.ModelViewSet):
     # Если кастомный тротлинг-класс вернёт True - запросы будут обработаны
     # Если он вернёт False - все запросы будут отклонены
     throttle_classes = (WorkingHoursRateThrottle,)
-    # Указываем фильтрующий бэкенд DjangoFilterBackend
-    # Из библиотеки django-filter
-    filter_backends = (DjangoFilterBackend,)
+    # Добавим в кортеж ещё один бэкенд
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     # Временно отключим пагинацию на уровне вьюсета,
     # так будет удобнее настраивать фильтрацию
     pagination_class = None
     # Фильтровать будем по полям color и birth_year модели Cat
     filterset_fields = ('color', 'birth_year')
+    search_fields = ('name',)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
