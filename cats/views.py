@@ -29,7 +29,7 @@ class CatViewSet(viewsets.ModelViewSet):
     pagination_class = None
     # Фильтровать будем по полям color и birth_year модели Cat
     filterset_fields = ('color', 'birth_year')
-    search_fields = ('name',)
+    search_fields = ('achievements__name', 'owner__username')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
