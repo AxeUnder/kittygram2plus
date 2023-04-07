@@ -26,10 +26,11 @@ class CatViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Cat.objects.all()
-        color = self.kwargs['color']
-        # Через ORM отфильтровать объекты модели Cat
-        # по значению параметра color, полученного в запросе
-        queryset = queryset.filter(color=color)
+        color = self.request.query_params.get('color')
+        if color is not None:
+            #  через ORM отфильтровать объекты модели Cat
+            #  по значению параметра color, полученного в запросе
+            queryset = queryset.filter(color=color)
         return queryset
 
     def perform_create(self, serializer):

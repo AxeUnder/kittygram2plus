@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
+    # Обратите внимание: библиотека django-filter, а приложение django_filters
     'djoser',
     'cats.apps.CatsConfig',
 ]
