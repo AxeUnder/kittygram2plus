@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_filters',
     # Обратите внимание: библиотека django-filter, а приложение django_filters
     'djoser',
+    'drf_yasg',
     'cats.apps.CatsConfig',
 ]
 
@@ -158,4 +159,14 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
 }
